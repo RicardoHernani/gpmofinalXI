@@ -31,7 +31,7 @@ public class DevConfig {
 	@Bean
 	public boolean instantiateDatabase() {   
 		
-		if(!"create".equals(strategy1) && (!"true".equals(strategy2) && (!"always".equals(strategy3)))) {
+		if((!"create".equals(strategy1)) && (!"true".equals(strategy2)) && (!"always".equals(strategy3))) {
 			return false;
 		}
 		
