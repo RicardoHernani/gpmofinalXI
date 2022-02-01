@@ -52,7 +52,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/usuarios/**",
 			"/cirurgias/**",
 			"/procedimentos/**",
-			"/referencias/**"
+			"/referencias/**",
+			"/auth/forgot/**",
+			"/auth/refresh_token"
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_PUT = {                     
