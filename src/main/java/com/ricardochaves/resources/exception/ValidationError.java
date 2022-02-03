@@ -16,8 +16,8 @@ public class ValidationError extends StandardError {
 		return errors;								//está no método get. No caso getErrors. A palavra Errors que será convertida no json
 	}
 
-	public void addError(String fieldName, String messagem) {
-		errors.add(new FieldMessage(fieldName, messagem));
+	public void addError(String fieldName, String message) {
+		errors.add(new FieldMessage(fieldName, message));
 	}
 
 }
