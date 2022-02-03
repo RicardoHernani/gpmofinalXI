@@ -21,21 +21,21 @@ public class ResourceExceptionHandler {
 	@ExceptionHandler(ObjectNotFoundException.class)
 	public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e, HttpServletRequest request) {
 		HttpStatus status = HttpStatus.NOT_FOUND;
-		StandardError err = new StandardError(status.value(), "Não encontrado", System.currentTimeMillis(), e.getMessage());
+		StandardError err = new StandardError(status.value(), "Não encontrado", System.currentTimeMillis(), e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
 	
 	@ExceptionHandler(DataIntegrityException.class)
 	public ResponseEntity<StandardError> dataIntegrity(DataIntegrityException e, HttpServletRequest request) {
 		HttpStatus status = HttpStatus.BAD_REQUEST;
-		StandardError err = new StandardError(status.value(), "Não é possível excluir cirurgias com procedimentos", System.currentTimeMillis(), e.getMessage());
+		StandardError err = new StandardError(status.value(), "Não é possível excluir cirurgias com procedimentos", System.currentTimeMillis(), e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<StandardError> validation(MethodArgumentNotValidException e, HttpServletRequest request) {
-		HttpStatus status = HttpStatus.BAD_REQUEST;
-		ValidationError err = new ValidationError(status.value(), "Erro de validação", System.currentTimeMillis(), e.getMessage());
+		HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
+		ValidationError err = new ValidationError(status.value(), "Erro de validação", System.currentTimeMillis(), e.getMessage(), request.getRequestURI());
 		for (FieldError x : e.getBindingResult().getFieldErrors()) {
 			err.addError(x.getField(), x.getDefaultMessage());
 		}
@@ -45,14 +45,14 @@ public class ResourceExceptionHandler {
 	@ExceptionHandler(AuthorizationException.class)
 	public ResponseEntity<StandardError> authorization(AuthorizationException e, HttpServletRequest request) {
 		HttpStatus status = HttpStatus.FORBIDDEN;
-		StandardError err = new StandardError(status.value(), "Acesso negado", System.currentTimeMillis(), e.getMessage());
+		StandardError err = new StandardError(status.value(), "Acesso negado", System.currentTimeMillis(), e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
 	
 	@ExceptionHandler(NoSuchElementException.class)
 	public ResponseEntity<StandardError> noSuchElement(NoSuchElementException e, HttpServletRequest request) {
 		HttpStatus status = HttpStatus.NOT_FOUND;
-		StandardError err = new StandardError(status.value(), "Não encontrado", System.currentTimeMillis(), e.getMessage());
+		StandardError err = new StandardError(status.value(), "Não encontrado", System.currentTimeMillis(), e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
 	

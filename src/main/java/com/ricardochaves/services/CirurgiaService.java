@@ -41,7 +41,8 @@ public class CirurgiaService {
 			
 		} else throw new AuthorizationException("Você não tem permissão para acessar cirurgias de outro usuário");
 	}
-	
+	//Ver se é necessário fazer endpoint para buscar por email e não por id como na aula 96
+	//ver a necessidade no frontend
 	public Page<CirurgiaDTO> encontrarPorData(Integer idUsuario, LocalDate dataInicial, LocalDate dataFinal, Integer page, Integer linesPerPage, String orderBy, String direction) {
 		UserSS user = UserService.authenticated();
 		if (user == null) {
