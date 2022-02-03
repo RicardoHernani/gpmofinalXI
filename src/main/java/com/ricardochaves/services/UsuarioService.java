@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.ricardochaves.domain.Cirurgia;
 import com.ricardochaves.domain.Usuario;
 import com.ricardochaves.enums.Perfil;
 import com.ricardochaves.form.UsuarioForm;
 import com.ricardochaves.form.UsuarioFormUpdate;
+import com.ricardochaves.repositories.CirurgiaRepository;
 import com.ricardochaves.repositories.UsuarioRepository;
 import com.ricardochaves.security.UserSS;
 import com.ricardochaves.services.exceptions.AuthorizationException;
@@ -24,6 +26,9 @@ public class UsuarioService {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private CirurgiaRepository cirurgiaRepository;
 
 	public Usuario findById(Integer id) {
 		
@@ -65,6 +70,18 @@ public class UsuarioService {
 	}
 	
 	public void delete(Integer id) {
+		
+		UserSS user = UserService.authenticated();
+		if (user==null || !user.hasRole(Perfil.ADMIN) || id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
+		List<Cirurgia> obj = cirurgiaRepository.findAllCirurgiaByUsuarioId(id);
+		
+		for(Cirurgia cirurgia : obj ) {
+		cirurgiaRepository.delete(cirurgia);
+		}
+		
 		findById(id);
 		usuarioRepository.deleteById(id);
 	}

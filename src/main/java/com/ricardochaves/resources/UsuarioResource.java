@@ -65,7 +65,7 @@ public class UsuarioResource {
 		return ResponseEntity.noContent().build(); 
 	}
 	
-	@Transactional
+	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Usuario> delete(@PathVariable Integer id) {

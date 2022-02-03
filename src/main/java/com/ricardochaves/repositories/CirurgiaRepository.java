@@ -1,6 +1,7 @@
 package com.ricardochaves.repositories;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -21,5 +22,8 @@ public interface CirurgiaRepository extends JpaRepository<Cirurgia, Integer>{
 
 	@Query(value= "SELECT * FROM CIRURGIA, PROCEDIMENTO WHERE CIRURGIA.ID=PROCEDIMENTO.CIRURGIA_ID AND PROCEDIMENTO.ID= :id", nativeQuery = true)
 	Optional<Cirurgia> findByCirurgiaProcedimentoId(@Param("id") Integer id);
+	
+	@Query("select distinct c from Cirurgia c where usuario_id= :idUsuarioDeletado")
+	List<Cirurgia> findAllCirurgiaByUsuarioId(@Param("idUsuarioDeletado") Integer idUsuarioDeletado);
 	
 }
