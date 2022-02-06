@@ -2,7 +2,6 @@ package com.ricardochaves.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -21,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 public class Cirurgia implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+		
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
@@ -55,7 +54,7 @@ public class Cirurgia implements Serializable {
 				subTotalPontos += (pro.getReferencia().getPontos()).doubleValue();
 			} else subTotalPontos += 0;
 		}
-		return new BigDecimal(subTotalPontos).round(new MathContext(2, RoundingMode.HALF_EVEN));
+		return new BigDecimal(subTotalPontos).setScale(2, RoundingMode.HALF_EVEN);
 	}
 	
 	public BigDecimal getSubTotalValor() {
@@ -67,7 +66,7 @@ public class Cirurgia implements Serializable {
 				subTotalValor += (pro.getReferencia().getValor()).doubleValue()*0.5;
 			} else subTotalValor += 0;
 		}
-		return  new BigDecimal(subTotalValor).round(new MathContext(2, RoundingMode.HALF_EVEN));
+		return  new BigDecimal(subTotalValor).setScale(2, RoundingMode.HALF_EVEN);
 	}
 
 	public Integer getId() {
