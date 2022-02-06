@@ -1,6 +1,9 @@
 package com.ricardochaves.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -43,6 +46,28 @@ public class Cirurgia implements Serializable {
 		this.matricula = matricula;
 		this.data = data;
 		this.usuario = usuario;
+	}
+											//Cálculo de subtotais de Pontos e Valor para 
+	public BigDecimal getSubTotalPontos() { //cada cirurgia
+		double subTotalPontos = 0;
+		for (Procedimento pro : procedimentos) {
+			if((pro.getTipo().getCod()==1 || pro.getTipo().getCod()==2) && pro.getPremio().getCod()==2) {
+				subTotalPontos += (pro.getReferencia().getPontos()).doubleValue();
+			} else subTotalPontos += 0;
+		}
+		return new BigDecimal(subTotalPontos).round(new MathContext(2, RoundingMode.HALF_EVEN));
+	}
+	
+	public BigDecimal getSubTotalValor() {
+		double subTotalValor = 0;
+		for (Procedimento pro : procedimentos) {
+			if(pro.getTipo().getCod()==1 && pro.getPremio().getCod()==1) {
+				subTotalValor += (pro.getReferencia().getValor()).doubleValue();
+			} else if (pro.getTipo().getCod()==2 && pro.getPremio().getCod()==1) {
+				subTotalValor += (pro.getReferencia().getValor()).doubleValue()*0.5;
+			} else subTotalValor += 0;
+		}
+		return  new BigDecimal(subTotalValor).round(new MathContext(2, RoundingMode.HALF_EVEN));
 	}
 
 	public Integer getId() {
