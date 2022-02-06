@@ -1,6 +1,7 @@
 package com.ricardochaves.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,6 +24,9 @@ public class CirurgiaDTO implements Serializable {
 	
 	private Set<Procedimento> procedimentos = new HashSet<Procedimento>();
 	
+	private BigDecimal SubTotalPontos;
+	private BigDecimal SubTotalValor;
+	
 	public CirurgiaDTO() {
 	}
 	
@@ -33,6 +37,8 @@ public class CirurgiaDTO implements Serializable {
 		usuarioid = obj.getUsuario().getId();
 		nome = obj.getUsuario().getNome();
 		procedimentos = obj.getProcedimentos();
+		SubTotalPontos = obj.getSubTotalPontos();
+		SubTotalValor = obj.getSubTotalValor();
 	}
 
 	public Integer getId() {
@@ -83,4 +89,20 @@ public class CirurgiaDTO implements Serializable {
 		this.procedimentos = procedimentos;
 	}
 
+	public BigDecimal getSubTotalPontos() {
+		return SubTotalPontos;
+	}
+
+	public void setSubTotalPontos(BigDecimal subTotalPontos) {
+		SubTotalPontos = subTotalPontos;
+	}
+
+	public BigDecimal getSubTotalValor() {
+		return SubTotalValor;
+	}
+
+	public void setSubTotalValor(BigDecimal subTotalValor) {
+		SubTotalValor = subTotalValor;
+	}
+	
 }

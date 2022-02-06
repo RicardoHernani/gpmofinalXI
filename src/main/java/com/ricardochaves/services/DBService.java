@@ -42,15 +42,15 @@ public class DBService {
 	public void instantiateTestDatabase() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		
-		Referencia ref1 = new Referencia(10000000, "Ureterorrenolitotr Flex Unilat", new BigDecimal(41.67), new BigDecimal(297.82));
-		Referencia ref2 = new Referencia(10000001, "Histerec total", new BigDecimal(41.67), new BigDecimal(335.02));
-		Referencia ref3 = new Referencia(10000002, "Fístula Arterio-venosa ", new BigDecimal(27.77), new BigDecimal(195.07));
-		Referencia ref4 = new Referencia(10000003, "Palatoplastia", new BigDecimal(33.33), new BigDecimal(215.18));
-		Referencia ref5 = new Referencia(10000004, "Artrodese coluna", new BigDecimal(33.33), new BigDecimal(364.75));
-		Referencia ref6 = new Referencia(10000005, "Prostatec", new BigDecimal(41.67), new BigDecimal(443.25));
-		Referencia ref7 = new Referencia(10000006, "linfadenec pélvica", new BigDecimal(33.33), new BigDecimal(249.79));
-		Referencia ref8 = new Referencia(10000007, "tumor anorretal", new BigDecimal(16.67), new BigDecimal(56.07));
-		Referencia ref9 = new Referencia(10000003, "Amputação do pé", new BigDecimal(33.33), new BigDecimal(103.02));
+		Referencia ref1 = new Referencia(10000000, "Ureterorrenolitotr Flex Unilat", new BigDecimal(41.67), new BigDecimal(992.73));
+		Referencia ref2 = new Referencia(10000001, "Histerec total", new BigDecimal(41.67), new BigDecimal(1116.73));
+		Referencia ref3 = new Referencia(10000002, "Fístula Arterio-venosa ", new BigDecimal(27.77), new BigDecimal(650.23));
+		Referencia ref4 = new Referencia(10000003, "Palatoplastia", new BigDecimal(33.33), new BigDecimal(717.27));
+		Referencia ref5 = new Referencia(10000004, "Artrodese coluna", new BigDecimal(33.33), new BigDecimal(1215.83));
+		Referencia ref6 = new Referencia(10000005, "Prostatec", new BigDecimal(41.67), new BigDecimal(1477.50));
+		Referencia ref7 = new Referencia(10000006, "linfadenec pélvica", new BigDecimal(33.33), new BigDecimal(832.63));
+		Referencia ref8 = new Referencia(10000007, "tumor anorretal", new BigDecimal(16.67), new BigDecimal(186.9));
+		Referencia ref9 = new Referencia(10000003, "Amputação do pé", new BigDecimal(33.33), new BigDecimal(343.40));
 		
 		referenciaRepository.saveAll(Arrays.asList(ref1, ref2, ref3, ref4, ref5, ref6, ref7, ref8, ref9));
 		
