@@ -17,7 +17,7 @@ import com.ricardochaves.repositories.ProcedimentoRepository;
 import com.ricardochaves.repositories.ReferenciaRepository;
 import com.ricardochaves.security.UserSS;
 import com.ricardochaves.services.exceptions.AuthorizationException;
-import com.ricardochaves.services.exceptions.NoSuchElementException;
+import com.ricardochaves.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class ProcedimentoService {
@@ -42,10 +42,10 @@ public class ProcedimentoService {
 		
 		if (user.getId() == cirurgiaAlvo.get().getUsuario().getId()) {	
 			Optional<Procedimento> obj = procedimentoRepository.findById(id);
-			return obj.orElseThrow(() -> new NoSuchElementException("Procedimento não encontrada! id: " + id
-					+ ", Tipo: " + Cirurgia.class.getName()));
+			return obj.orElseThrow(() -> new ObjectNotFoundException("Procedimento não encontrada! id: " + id
+					+ ", Tipo: " + Procedimento.class.getName()));
 		
-		} else throw new AuthorizationException("Você não tem permissão para acessar procedimentos de outro usuário");
+		} else throw new AuthorizationException("Você não tem permissão para acessar, acrescentar, alterar ou apagar procedimentos de outros usuários");
 		
 		
 	}
@@ -56,21 +56,22 @@ public class ProcedimentoService {
 	}
 	
 	public Procedimento fromForm(ProcedimentoForm objForm) {
-		Referencia ref = referenciaRepository.getById(objForm.getReferenciaCodigo());
-		Cirurgia cir = cirurgiaRepository.getById(objForm.getCirurgiaId());
-		Procedimento pro = new Procedimento(null, TipoProcedimento.toEnum(objForm.getTipo()), PremioProcedimento.toEnum(objForm.getPremio()), cir, ref);
-		cir.getProcedimentos().add(pro);
-		
 		UserSS user = UserService.authenticated();
 		if (user == null) {
 			throw new AuthorizationException("Acesso negado");
 		}
 		
 		Optional<Cirurgia> cirurgiaAlvo = cirurgiaRepository.findById(objForm.getCirurgiaId());
-		if (user.getId() == cirurgiaAlvo.get().getUsuario().getId()) {
-		return pro;
 		
-		} else throw new AuthorizationException("Você não tem permissão para adicionar procedimentos de outros usuários");
+		
+		if (user.getId() == cirurgiaAlvo.get().getUsuario().getId()) {
+			Referencia ref = referenciaRepository.getById(objForm.getReferenciaCodigo());
+			Cirurgia cir = cirurgiaRepository.getById(objForm.getCirurgiaId());
+			Procedimento pro = new Procedimento(null, TipoProcedimento.toEnum(objForm.getTipo()), PremioProcedimento.toEnum(objForm.getPremio()), cir, ref);
+			cir.getProcedimentos().add(pro);
+			return pro;
+		
+		} else throw new AuthorizationException("Você não tem permissão para acrescentar procedimentos para outros usuários");
 		
 	}
 	
@@ -86,7 +87,7 @@ public class ProcedimentoService {
 			updateData(newObj, obj);
 			return procedimentoRepository.save(newObj);
 			
-		} else throw new AuthorizationException("Você não tem permissão para atualizar procedimentos de outro usuário");		
+		} else throw new AuthorizationException("Você não tem permissão para atualizar procedimentos de outros usuários");		
 	}
 	
 	public Procedimento fromFormUpdate(ProcedimentoFormUpdate objForm) {						 				 
@@ -114,7 +115,7 @@ public class ProcedimentoService {
 			
 			procedimentoRepository.deleteById(id);
 			
-		} else throw new AuthorizationException("Você não tem permissão para apagar procedimentos de outros usuários");
+		}
 	}
 	
 }

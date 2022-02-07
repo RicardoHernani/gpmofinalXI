@@ -17,7 +17,7 @@ import com.ricardochaves.repositories.CirurgiaRepository;
 import com.ricardochaves.repositories.UsuarioRepository;
 import com.ricardochaves.security.UserSS;
 import com.ricardochaves.services.exceptions.AuthorizationException;
-import com.ricardochaves.services.exceptions.NoSuchElementException;
+import com.ricardochaves.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CirurgiaService {
@@ -36,10 +36,10 @@ public class CirurgiaService {
 		
 		if(user.getId() == (cirurgiaRepository.findById(id)).get().getUsuario().getId()){
 			Optional<Cirurgia> obj = cirurgiaRepository.findById(id);
-			return obj.orElseThrow(() -> new NoSuchElementException("Cirurgia não encontrada! id: " + id
+			return obj.orElseThrow(() -> new ObjectNotFoundException("Cirurgia não encontrada! id: " + id
 				+ ", Tipo: " + Cirurgia.class.getName()));
 			
-		} else throw new AuthorizationException("Você não tem permissão para acessar cirurgias de outro usuário");
+		} else throw new AuthorizationException("Você não tem permissão para acessar, acrescentar, alterar ou apagar cirurgias de outros usuários");
 	}
 	//Ver se é necessário fazer endpoint para buscar por email e não por id como na aula 96
 	//ver a necessidade no frontend
@@ -70,10 +70,9 @@ public class CirurgiaService {
 		if (user.getId() == usu.getId()) {
 		return cir;
 		
-		} else throw new AuthorizationException("Você não tem permissão para acrescentar cirurgias para outro usuário");
+		} throw new AuthorizationException("Você não tem permissão para acrescentar cirurgias para outros usuários");
 		
 	}
-	
 	
 	public Cirurgia update(Cirurgia objForm) {
 		UserSS user = UserService.authenticated();
@@ -86,7 +85,7 @@ public class CirurgiaService {
 		if (user.getId() == newObj.getUsuario().getId()) {
 			updateData(newObj, objForm);
 			return cirurgiaRepository.save(newObj);
-		} else throw new AuthorizationException("Você não tem permissão para atualizar cirurgias de outro usuário");
+		} throw new AuthorizationException("Você não tem permissão para atualizar cirurgias de outros usuários");
 	}
 	
 	public Cirurgia fromFormUpdate(CirurgiaForm objForm) {												 
@@ -109,7 +108,7 @@ public class CirurgiaService {
 		if (user.getId() == cirurgiaParaDeletar.getUsuario().getId()) {
 			cirurgiaRepository.deleteById(id);
 		
-		} else throw new AuthorizationException("Você não tem permissão para deletar cirurgias de outro usuário");
+		}
 		
 	}
 }

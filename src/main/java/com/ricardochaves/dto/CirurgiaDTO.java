@@ -24,8 +24,8 @@ public class CirurgiaDTO implements Serializable {
 	
 	private Set<Procedimento> procedimentos = new HashSet<Procedimento>();
 	
-	private BigDecimal SubTotalPontos;
-	private BigDecimal SubTotalValor;
+	private BigDecimal subTotalPontos;
+	private BigDecimal subTotalValor;
 	
 	public CirurgiaDTO() {
 	}
@@ -37,8 +37,8 @@ public class CirurgiaDTO implements Serializable {
 		usuarioid = obj.getUsuario().getId();
 		nome = obj.getUsuario().getNome();
 		procedimentos = obj.getProcedimentos();
-		SubTotalPontos = obj.getSubTotalPontos();
-		SubTotalValor = obj.getSubTotalValor();
+		subTotalPontos = obj.getSubTotalPontos();
+		subTotalValor = obj.getSubTotalValor();
 	}
 
 	public Integer getId() {
@@ -90,19 +90,21 @@ public class CirurgiaDTO implements Serializable {
 	}
 
 	public BigDecimal getSubTotalPontos() {
-		return SubTotalPontos;
+		return subTotalPontos;
 	}
 
 	public void setSubTotalPontos(BigDecimal subTotalPontos) {
-		SubTotalPontos = subTotalPontos;
+		this.subTotalPontos = subTotalPontos;
 	}
 
 	public BigDecimal getSubTotalValor() {
-		return SubTotalValor;
+		return subTotalValor;
 	}
 
 	public void setSubTotalValor(BigDecimal subTotalValor) {
-		SubTotalValor = subTotalValor;
+		this.subTotalValor = subTotalValor;
 	}
+
+	
 	
 }
