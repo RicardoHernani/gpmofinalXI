@@ -55,5 +55,5 @@ public class ResourceExceptionHandler {
 		StandardError err = new StandardError(status.value(), "Não encontrado", System.currentTimeMillis(), e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
-	
+
 }
