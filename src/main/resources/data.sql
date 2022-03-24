@@ -2816,5 +2816,5 @@ INSERT INTO REFERENCIA (codigo, descricao, pontos, valor) VALUES
 (91600010, 'Deslocamento por KM percorrido para Municipios fora da Area de Atuacao do Auditor', 0.02, 0.8),
 (91600011, 'Deslocamento por Periodo Acima de 12h, com pernoite comprovada, em municipios fora da area de atuacao do auditor. (Por Pernoite)', 5, 250);
 
-UPDATE `referencia` SET valor = ROUND(valor*0.3 , 2);
+UPDATE referencia SET valor = ROUND(valor*0.3 , 2);
 
