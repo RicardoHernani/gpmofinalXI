@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -43,6 +44,12 @@ public class UsuarioResource {
 		List <Usuario> list = usuarioService.findAll();
 		List<UsuarioDTO> listDto = list.stream().map(x -> new UsuarioDTO(x)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto); 
+	}
+	
+	@RequestMapping(value="/email", method=RequestMethod.GET)
+	public ResponseEntity<Usuario> find(@RequestParam(value="value") String email) {
+		Usuario obj = usuarioService.findByEmail(email);
+		return ResponseEntity.ok().body(obj); 
 	}
 	
 	@Transactional
