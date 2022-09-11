@@ -26,4 +26,7 @@ public interface CirurgiaRepository extends JpaRepository<Cirurgia, Integer>{
 	@Query("select distinct c from Cirurgia c where usuario_id= :idUsuarioDeletado")
 	List<Cirurgia> findAllCirurgiaByUsuarioId(@Param("idUsuarioDeletado") Integer idUsuarioDeletado);
 	
+	@Query("select distinct c from Cirurgia c where usuario_id= :idUsuario and c.data= :dataCirurgia")
+	Page<CirurgiaDTO> dateSearch(@Param("idUsuario") Integer idUsuario, @Param("dataCirurgia") LocalDate dataCirurgia, Pageable pageRequest);
+	
 }

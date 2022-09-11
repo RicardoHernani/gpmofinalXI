@@ -51,6 +51,18 @@ public class CirurgiaResource {
 			return ResponseEntity.ok().body(list);
 	}
 	
+	@RequestMapping(value="/data/page", method=RequestMethod.GET)
+	public ResponseEntity<Page<CirurgiaDTO>> buscarPorDataPage(
+			@RequestParam(value="dataCirurgia", defaultValue="") String dataCirurgia,
+			@RequestParam(value="page", defaultValue="0") Integer page,
+			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage,
+			@RequestParam(value="orderBy", defaultValue="data") String orderBy,
+			@RequestParam(value="direction", defaultValue="ASC") String direction) {
+			LocalDate inicio = URL.convertDate(dataCirurgia, LocalDate.EPOCH);
+			Page<CirurgiaDTO> list = cirurgiaService.encontrarData(null, inicio, page, linesPerPage, orderBy, direction);
+			return ResponseEntity.ok().body(list);
+	}
+	
 	@Transactional
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody CirurgiaForm objForm) {

@@ -53,6 +53,16 @@ public class CirurgiaService {
 		return cirurgiaRepository.dateIntervalSearch(idUsuario, dataInicial, dataFinal, pageRequest);
 	}
 	
+	public Page<CirurgiaDTO> encontrarData(Integer idUsuario, LocalDate dataCirurgia, Integer page, Integer linesPerPage, String orderBy, String direction) {
+		UserSS user = UserService.authenticated();
+		if (user == null) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		idUsuario = user.getId();
+		return cirurgiaRepository.dateSearch(idUsuario, dataCirurgia, pageRequest);
+	}
+	
 	public Cirurgia insert(Cirurgia obj) {
 		obj.setId(null);
 		return cirurgiaRepository.save(obj);
