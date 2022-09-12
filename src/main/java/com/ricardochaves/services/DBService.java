@@ -65,6 +65,7 @@ public class DBService {
 		
 		Cirurgia cir1 = new Cirurgia(null, 11111111, LocalDate.parse("2020-02-20", formatter), usu1);
 		Cirurgia cir2 = new Cirurgia(null, 11111111, LocalDate.parse("2021-05-26", formatter), usu1);
+		Cirurgia cir10 = new Cirurgia(null, 77777777, LocalDate.parse("2020-02-20", formatter), usu1);
 		
 		Cirurgia cir3 = new Cirurgia(null, 22222222, LocalDate.parse("2009-10-10", formatter), usu2);
 		Cirurgia cir4 = new Cirurgia(null, 33333333, LocalDate.parse("2013-08-15", formatter), usu2);
@@ -75,7 +76,7 @@ public class DBService {
 		Cirurgia cir8 = new Cirurgia(null, 55555555, LocalDate.parse("1998-05-13", formatter), usu3);
 		Cirurgia cir9 = new Cirurgia(null, 66666666, LocalDate.parse("2019-06-27", formatter), usu3);	
 		
-		cirurgiaRepository.saveAll(Arrays.asList(cir1, cir2, cir3, cir4, cir5, cir6, cir7, cir8, cir9));
+		cirurgiaRepository.saveAll(Arrays.asList(cir1, cir2, cir3, cir4, cir5, cir6, cir7, cir8, cir9, cir10));
 		
 		Procedimento pro1 = new Procedimento(null, TipoProcedimento.PRINCIPAL, PremioProcedimento.DINHEIRO, cir1, ref1);
 		Procedimento pro2 = new Procedimento(null, TipoProcedimento.SECUNDARIO, PremioProcedimento.DINHEIRO, cir1, ref2);
@@ -90,6 +91,8 @@ public class DBService {
 		Procedimento pro8 = new Procedimento(null, TipoProcedimento.PRINCIPAL, PremioProcedimento.DINHEIRO, cir7, ref3);
 		Procedimento pro9 = new Procedimento(null, TipoProcedimento.PRINCIPAL, PremioProcedimento.TAREFABASICA, cir8, ref8);
 		Procedimento pro10 = new Procedimento(null, TipoProcedimento.PRINCIPAL, PremioProcedimento.TAREFABASICA, cir9, ref9);
+		Procedimento pro11 = new Procedimento(null, TipoProcedimento.SECUNDARIO, PremioProcedimento.TAREFABASICA, cir10, ref8);
+		Procedimento pro12 = new Procedimento(null, TipoProcedimento.PRINCIPAL, PremioProcedimento.TAREFABASICA, cir10, ref9);
 
 		cir1.getProcedimentos().addAll(Arrays.asList(pro1, pro2));
 		cir2.getProcedimentos().addAll(Arrays.asList(pro3));
@@ -100,11 +103,10 @@ public class DBService {
 		cir7.getProcedimentos().addAll(Arrays.asList(pro8));
 		cir8.getProcedimentos().addAll(Arrays.asList(pro9));
 		cir9.getProcedimentos().addAll(Arrays.asList(pro10));
+		cir10.getProcedimentos().addAll(Arrays.asList(pro11, pro12));
 		
-		procedimentoRepository.saveAll(Arrays.asList(pro1, pro2, pro3, pro4, pro5, pro6, pro7, pro8, pro9, pro10));
+		procedimentoRepository.saveAll(Arrays.asList(pro1, pro2, pro3, pro4, pro5, pro6, pro7, pro8, pro9, pro10, pro11, pro12));
 		
 	}
-	
-	
 }
 
